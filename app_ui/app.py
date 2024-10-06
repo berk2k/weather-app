@@ -32,7 +32,7 @@ def weather():
             timezone_offset = weather_data['timezone']  
             city_time = datetime.utcnow() + timedelta(seconds=timezone_offset)
 
-            # Türkiye için saat bilgisini al
+            
             return render_template("weather.html", data=weather_data, tr_time=tr_time, current_time=city_time.strftime("%Y-%m-%d %H:%M:%S"))
 
     return render_template("weather.html", tr_time=tr_time, current_time=None)
