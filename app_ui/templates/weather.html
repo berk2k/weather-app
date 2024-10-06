@@ -4,47 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        .weather-info {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Weather Application</h1>
-    <form method="POST">
-        <input type="text" name="city" placeholder="Enter city name" required>
-        <button type="submit">Get Weather</button>
-    </form>
-
-    <p>Current Time in Turkey: {{ tr_time }}</p> 
-    
-    {% if current_time %}
-        <p>Current Time in {{ data['name'] }}: {{ current_time }}</p>
-    {% endif %}
-
-    {% if data and data.get('main') %}
-        <div class="weather-info">
-            <h2>Weather in {{ data['name'] }}</h2>
-            <p>Temperature: {{ data['main']['temp'] }}°C</p>
-            <p>Weather: {{ data['weather'][0]['description'] }}</p>
+    <div class="container">
+        <h1>Weather App</h1>
+        <form method="POST">
+            <input type="text" name="city" placeholder="Enter City Name" required>
+            <button type="submit">Get Weather</button>
+        </form>
+        {% if data %}
+            <div class="weather-info">
+                <h2>{{ data.name }}</h2>
+                
+                <p>Temperature: {{ data.main.temp }} °C</p>
+                <p>Weather: {{ data.weather[0].description }}</p>
+                <p>Turkey Time: {{ tr_time }}</p>
+                <p>{{ current_time }} ({{ data.timezone }})</p>
+            </div>
+        {% endif %}
+        <div class="footer">
+            <p>© 2024 Weather App</p>
         </div>
-    {% elif data and data.get('message') %}
-        <p style="color:red;">{{ data['message'] }}</p>
-    {% endif %}
+    </div>
 </body>
 </html>
