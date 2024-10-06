@@ -14,12 +14,23 @@
             <button type="submit">Get Weather</button>
         </form>
         {% if data %}
+
         <div class="weather-info">
             <h2>{{ data.name }}</h2>
             <p>Temperature: {{ data.main.temp }} °C</p>
             <p>Weather: {{ data.weather[0].description }}</p>
 
         </div>
+
+            <div class="weather-info">
+                <h2>{{ data.name }}</h2>
+                
+                <p>Temperature: {{ data.main.temp }} °C</p>
+                <p>Weather: {{ data.weather[0].description }}</p>
+                <p>Turkey Time: {{ tr_time }}</p> #depends on your location
+                <p>{{ current_time }} ({{ data.timezone }})</p>
+            </div>
+
         {% endif %}
         <div class="footer">
             <p>© 2024 Weather App</p>
