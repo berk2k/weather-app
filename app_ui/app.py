@@ -12,7 +12,6 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def weather():
-    
     tr_tz = pytz.timezone("Europe/Istanbul")
     tr_time = datetime.now(tr_tz).strftime("%Y-%m-%d %H:%M:%S")  
 
@@ -23,19 +22,11 @@ def weather():
         response = requests.get(api_url)
         weather_data = response.json()
 
-        
         if 'coord' in weather_data:
-            lon = weather_data['coord']['lon']
-            lat = weather_data['coord']['lat']
+            return render_template("weather.html", data=weather_data, tr_time=tr_time)
 
-            
-            timezone_offset = weather_data['timezone']  
-            city_time = datetime.utcnow() + timedelta(seconds=timezone_offset)
+    return render_template("weather.html", tr_time=tr_time)
 
-            
-            return render_template("weather.html", data=weather_data, tr_time=tr_time, current_time=city_time.strftime("%Y-%m-%d %H:%M:%S"))
-
-    return render_template("weather.html", tr_time=tr_time, current_time=None)
 
 if __name__ == "__main__":
     app.run(debug=True)
